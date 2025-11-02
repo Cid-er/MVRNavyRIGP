@@ -32,7 +32,7 @@ APPeriscope::APPeriscope()
 	CurrentRotation = GetActorRotation().Yaw;
 
 	bIsRaised = false;
-	bIsRaising = true;
+	bIsRaising = false;
 	bIsLowering = false;
 	bIsViewport = false;
 }
@@ -74,69 +74,129 @@ void APPeriscope::BeginPlay()
 void APPeriscope::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
 
-	if (!bIsRaised && !bIsLowering)
+
+
+
+//RAISE AND LOWER CALLERS
+void APPeriscope::RaisePeriscope(const FInputActionValue& Value)
+{
+	bool IsPressed = Value.Get<bool>();
+
+	if (!GetWorldTimerManager().IsTimerActive(LR_TimerHandle) && IsPressed)
 	{
-		RaisePeriscope();
-	}
-	if (bIsRaised && !bIsRaising)
-	{
-		LowerPeriscope();
+		GetWorldTimerManager().SetTimer(LR_TimerHandle, this, &APPeriscope::RaisePeriscopeHandler, GetWorld()->GetDeltaSeconds(), true);
 	}
 }
 
-void APPeriscope::RaisePeriscope()
+void APPeriscope::LowerPeriscope(const FInputActionValue& Value)
 {
-	if (PlayerController && !bIsViewport)
+	bool IsPressed = Value.Get<bool>();
+
+	if (!GetWorldTimerManager().IsTimerActive(LR_TimerHandle) && IsPressed)
 	{
-		PlayerController->SetViewTarget(this);
-		bIsViewport = true;
+		GetWorldTimerManager().SetTimer(LR_TimerHandle, this, &APPeriscope::LowerPeriscopeHandler, GetWorld()->GetDeltaSeconds(), true);
 	}
+}
 
-	bIsRaising = true;
 
-	if (!bIsRaised)
+
+
+//RAISE AND LOWER HANDLERS
+void APPeriscope::RaisePeriscopeHandler()
+{
+	FVector Location = GetActorLocation();
+	UE_LOG(LogTemp, Warning, TEXT("Raising Periscope"));
+
+	if (!bIsRaised || !bIsRaising)
 	{
-		FVector Location = GetActorLocation();
-		Location.Z += RaiseSpeed * GetWorld()->GetDeltaSeconds();
+		//switch to periscope camera view
+		if (PlayerController && !bIsViewport)
+		{
+			PlayerController->SetViewTarget(this);
+			bIsViewport = true;
+		}
+
+		//to enable switching
+		if (bIsLowered || bIsLowering)
+		{
+			bIsLowered = false;
+			bIsLowering = false;
+		}
+
+		bIsRaising = true;
+
+		Location.Z += RaiseSpeed * GetWorldTimerManager().GetTimerElapsed(LR_TimerHandle);
 		SetActorLocation(Location);
 
 		if (Location.Z >= MaxHeight)
 		{
+			//set to max height
 			Location.Z = MaxHeight;
 			SetActorLocation(Location);
+
+			//set booleans
 			bIsRaised = true;
 			bIsRaising = false;
 		}
 	}
+
+	if (Location.Z == MaxHeight && GetWorldTimerManager().IsTimerActive(LR_TimerHandle))
+	{
+		//stop timer
+		GetWorldTimerManager().ClearTimer(LR_TimerHandle);
+	}
 }
 
-void APPeriscope::LowerPeriscope()
+void APPeriscope::LowerPeriscopeHandler()
 {
-	bIsLowering = true;
+	FVector Location = GetActorLocation();
+	UE_LOG(LogTemp, Warning, TEXT("Lowering Periscope"));
 
-	if (bIsRaised)
+	if (!bIsLowered || !bIsLowering)
 	{
-		FVector Location = GetActorLocation();
-		Location.Z -= LowerSpeed * GetWorld()->GetDeltaSeconds();
+		//to enable switching
+		if (bIsRaised || bIsRaising) 
+		{
+			bIsRaised = false;
+			bIsRaising = false;
+		}
+
+		bIsLowering = true;
+		
+		Location.Z -= LowerSpeed * GetWorldTimerManager().GetTimerElapsed(LR_TimerHandle);
 		SetActorLocation(Location);
 
 		if (Location.Z <= MinHeight)
 		{
+			//set to min height
 			Location.Z = MinHeight;
 			SetActorLocation(Location);
-			bIsRaised = false;
+
+			//set booleans
+			bIsLowered = true;
 			bIsLowering = false;
 
 			if (PlayerController && MainCam && bIsViewport)
 			{
+				//switch back to main camera view
 				PlayerController->SetViewTarget(MainCam);
 				bIsViewport = false;
 			}
 		}
 	}
+
+	if (Location.Z == MinHeight && GetWorldTimerManager().IsTimerActive(LR_TimerHandle))
+	{
+		//stop timer
+		GetWorldTimerManager().ClearTimer(LR_TimerHandle);
+	}
 }
 
+
+
+//ROTATION FUNCTION
 void APPeriscope::RotatePeriscope(const FInputActionValue& Value) 
 {
 	const float InputValue = Value.Get<float>();
@@ -156,6 +216,18 @@ void APPeriscope::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	if (UEnhancedInputComponent* EIC = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) 
 	{
 		EIC->BindAction(LookAction, ETriggerEvent::Triggered, this, &APPeriscope::RotatePeriscope);
+		EIC->BindAction(RaiseAction, ETriggerEvent::Triggered, this, &APPeriscope::RaisePeriscope);
+		EIC->BindAction(LowerAction, ETriggerEvent::Triggered, this, &APPeriscope::LowerPeriscope);
 	}
+}
+
+
+void APPeriscope::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	// It's important to keep the call chain on EndPlay or you may end up with serious bugs or crashes
+	Super::EndPlay(EndPlayReason);
+
+
+	GetWorld()->GetTimerManager().ClearTimer(LR_TimerHandle);
 }
 

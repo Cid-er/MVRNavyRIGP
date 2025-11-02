@@ -41,17 +41,26 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void RaisePeriscope();
-	void LowerPeriscope();
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
+
+	void RaisePeriscope(const FInputActionValue& Value);
+	void LowerPeriscope(const FInputActionValue& Value);
 	void RotatePeriscope(const FInputActionValue& Value);
+	void LowerPeriscopeHandler();
+	void RaisePeriscopeHandler();
 
 private:
 	bool bIsRaised;
 	bool bIsRaising;
 	bool bIsLowering;
+	bool bIsLowered;
 	bool bIsViewport;
 
 	float CurrentRotation;
+
+	FTimerHandle LR_TimerHandle;
+	FTimerDelegate LR_TimerDelegate;
 
 	UPROPERTY(EditAnywhere)
 	float RaiseSpeed;
