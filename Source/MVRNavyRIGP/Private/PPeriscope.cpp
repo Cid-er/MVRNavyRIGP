@@ -109,8 +109,13 @@ void APPeriscope::RaisePeriscopeHandler()
 	FVector Location = GetActorLocation();
 	UE_LOG(LogTemp, Warning, TEXT("Raising Periscope"));
 
-	if (!bIsRaised || !bIsRaising)
+	if (!bIsRaised)
 	{
+		if (!bIsRaising) 
+		{
+			bIsRaising = true;
+		}
+
 		//switch to periscope camera view
 		if (PlayerController && !bIsViewport)
 		{
@@ -124,8 +129,6 @@ void APPeriscope::RaisePeriscopeHandler()
 			bIsLowered = false;
 			bIsLowering = false;
 		}
-
-		bIsRaising = true;
 
 		Location.Z += RaiseSpeed * GetWorldTimerManager().GetTimerElapsed(LR_TimerHandle);
 		SetActorLocation(Location);
@@ -154,8 +157,13 @@ void APPeriscope::LowerPeriscopeHandler()
 	FVector Location = GetActorLocation();
 	UE_LOG(LogTemp, Warning, TEXT("Lowering Periscope"));
 
-	if (!bIsLowered || !bIsLowering)
+	if (!bIsLowered)
 	{
+		if (!bIsLowering)
+		{
+			bIsLowering = true;
+		}
+
 		//to enable switching
 		if (bIsRaised || bIsRaising) 
 		{
@@ -163,8 +171,6 @@ void APPeriscope::LowerPeriscopeHandler()
 			bIsRaising = false;
 		}
 
-		bIsLowering = true;
-		
 		Location.Z -= LowerSpeed * GetWorldTimerManager().GetTimerElapsed(LR_TimerHandle);
 		SetActorLocation(Location);
 
