@@ -29,7 +29,6 @@ APPeriscope::APPeriscope()
 	HeightRange = 300.0f;
 	RaiseSpeed = 50.0f;
 	LowerSpeed = 50.0f;
-	CurrentRotation = GetActorRotation().Yaw;
 
 	bIsRaised = false;
 	bIsRaising = false;

@@ -28,7 +28,6 @@ protected:
 	virtual void BeginPlay() override;
 
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Periscope")
 	UCameraComponent* PeriscopeCamera;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Periscope")
@@ -57,10 +56,7 @@ private:
 	bool bIsLowered;
 	bool bIsViewport;
 
-	float CurrentRotation;
-
 	FTimerHandle LR_TimerHandle;
-	FTimerDelegate LR_TimerDelegate;
 
 	UPROPERTY(EditAnywhere)
 	float RaiseSpeed;
@@ -76,8 +72,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	APlayerController* PlayerController;
-
-	//issue with including CameraComponent header
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
