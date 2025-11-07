@@ -2,6 +2,7 @@
 
 
 #include "SpawnedShip.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 ASpawnedShip::ASpawnedShip()
@@ -15,6 +16,7 @@ ASpawnedShip::ASpawnedShip()
 void ASpawnedShip::BeginPlay()
 {
 	Super::BeginPlay();
+	RandomiseShip();
 	
 }
 
@@ -22,6 +24,20 @@ void ASpawnedShip::BeginPlay()
 void ASpawnedShip::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("CodeHasRun"));
+}
 
+void ASpawnedShip::RandomiseShip()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("CodeHasRun"));
+	UStaticMesh* MeshAsset = Cast<UStaticMesh>(StaticLoadObject(UStaticMesh::StaticClass(), NULL, TEXT("/Game/LevelPrototyping/Meshes/SM_ChamferCube.SM_ChamferCube")));
+
+	UStaticMeshComponent* ourMesh = GetComponentByClass<UStaticMeshComponent>();
+	ourMesh->SetStaticMesh(MeshAsset);
+}
+
+void ASpawnedShip::LoadShips()
+{
+	
 }
 

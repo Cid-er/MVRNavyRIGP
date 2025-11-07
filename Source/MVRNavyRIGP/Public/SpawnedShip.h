@@ -18,6 +18,11 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	void RandomiseShip();
+	void LoadShips();
+	//Value[0] is the path to the ships static mesh.
+	//Value[1] is the path to the ships information
+	TMap<uint32, TTuple<FString, FString>> shipList;
 
 public:	
 	// Called every frame
