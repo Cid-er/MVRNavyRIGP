@@ -24,6 +24,7 @@ protected:
 
 	void SpawnTraffic();
 
+	//Array of traffic types to spawn, can be edited in derived blueprint editor
 	UPROPERTY(EditAnywhere, Category = "Traffic")
 	TArray<TSubclassOf<AATraffic>> TrafficTypes;
 

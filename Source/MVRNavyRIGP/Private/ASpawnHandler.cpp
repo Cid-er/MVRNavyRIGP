@@ -18,10 +18,10 @@ void AASpawnHandler::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//will get Submarine position later in development
+	//will get Submarine position later in development, currently gets player position
 	PlayerPosition = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
 
-	//will call multiple times later
+	//will call multiple times once more traffic types are added
 	SpawnTraffic();
 }
 
@@ -50,23 +50,30 @@ void AASpawnHandler::SpawnTraffic()
 		FVector SpawnLocation;
 		FRotator SpawnRotation;
 
+		//Sets the distance at which the helicopter will spawn around the player
 		float MinDistance = 37000.0f;
 		float MaxDistance = 90000.0f;
 		float Distance = FMath::RandRange(MinDistance, MaxDistance);
 
+		//Sets the height at which the helicopter will spawn around the player
 		float MinHeight = 12500.0f;
 		float MaxHeight = 20000.0f;
 		float Height = FMath::RandRange(MinHeight, MaxHeight);
-
+		
+		//Sets the angle at which the helicopter will spawn around the player
 		float AngleFromPlayer = FMath::RandRange(0.0f, 360.0f);
+
+		//parametric equations for circle to set the spawn location around player
 		SpawnLocation = FVector(FMath::Cos(FMath::DegreesToRadians(AngleFromPlayer)) * (Distance + SubLocation.X), FMath::Sin(FMath::DegreesToRadians(AngleFromPlayer)) * (Distance + SubLocation.Y), Height);
 		
+		//Sets a random yaw rotation for the helicopter
 		float YawRotation = FMath::RandRange(0.0f, 360.0f);
 		SpawnRotation = FRotator(0.0f, YawRotation, 0.0f);
 
-		// Spawn a helicopter traffic actor with helicopter spawn point boundaries
+		//Spawn a helicopter traffic actor with helicopter spawn point boundaries
 		GetWorld()->SpawnActor<AATraffic_Helicopter>(TrafficClass, SpawnLocation, SpawnRotation);
 	}
+
 
 //	else if(TrafficClass->IsChildOf(AATraffic_Ship::StaticClass()))
 //	{
