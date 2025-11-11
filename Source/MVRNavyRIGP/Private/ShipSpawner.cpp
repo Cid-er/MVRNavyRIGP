@@ -28,14 +28,22 @@ void AShipSpawner::Tick(float DeltaTime)
 
 void AShipSpawner::RandomiseShip()
 {
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("CodeHasRun"));
+	//Make a new random seed and generate a random ID number.
 	srand(time(0));
-	int shipChoice = rand() % 2;
+	int shipChoice = rand() % shipList.Num();
+	//Look at the map to find which mesh to change to.
 	const TCHAR* shipPath = *shipList[shipChoice];
+	shipName = shipPath;
 
+	//Load in the new mesh via it's path.
 	UStaticMesh* MeshAsset = Cast<UStaticMesh>(StaticLoadObject(UStaticMesh::StaticClass(), NULL, shipPath));
 
+	//Get our current mesh, then set it to the new mesh.
 	UStaticMeshComponent* ourMesh = GetComponentByClass<UStaticMeshComponent>();
 	ourMesh->SetStaticMesh(MeshAsset);
+
+	//Generate a new location and set our actor to it.
+	FVector randomLocation(FMath::FRandRange(-750.0, 750.0), FMath::FRandRange(-750.0, 750.0), 300);
+	SetActorLocation(randomLocation);
 }
 

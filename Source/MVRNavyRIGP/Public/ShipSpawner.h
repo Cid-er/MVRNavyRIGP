@@ -21,6 +21,8 @@ protected:
 	void RandomiseShip();
 	TMap<uint32, FString> shipList;
 
+	FString shipName;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
