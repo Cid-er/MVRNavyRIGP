@@ -34,10 +34,24 @@ void AASpawnHandler::Tick(float DeltaTime)
 
 void AASpawnHandler::SpawnTraffic()
 {
+	//Prevent crashing caused by empty traffic type array
 	if (TrafficTypes.Num() == 0) 
 	{
 		UE_LOG(LogTemp, Warning, TEXT("No traffic types specified in SpawnHandler"));
 		return;
+	}
+
+	//Prevent crashing caused by null traffic type in array
+	else
+	{
+		for (int i = 0; i < TrafficTypes.Num(); i++) 
+		{
+			if (TrafficTypes[i] == nullptr) 
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Null traffic type found in SpawnHandler"));
+				return;
+			}
+		}
 	}
 
 	TSubclassOf<AATraffic> TrafficClass = TrafficTypes[FMath::RandRange(0, TrafficTypes.Num() - 1)];
