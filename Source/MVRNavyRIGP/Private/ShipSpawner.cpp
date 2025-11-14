@@ -31,7 +31,7 @@ void AShipSpawner::Tick(float DeltaTime)
 	if (behaviour == 1) // ignore if behaviour == 0 as 0 is stationary
 	{
 		FVector movement = GetActorLocation();
-		movement += GetActorForwardVector() * speed * DeltaTime;
+		movement += GetActorForwardVector() * 50.0f * DeltaTime;
 		SetActorLocation(movement);
 	}
 }
@@ -55,12 +55,15 @@ void AShipSpawner::RandomiseShip()
 	//Generate a new location and set our actor to it.
 	FVector randomLocation(FMath::FRandRange(-750.0, 750.0), FMath::FRandRange(-750.0, 750.0), 300);
 	SetActorLocation(randomLocation);
+
+	//Generate a new rotation for the actor to look at.
+	FRotator randomRotation(0,FMath::FRandRange(-180.0, 180.0),0); 
+	SetActorRotation(randomRotation);
+	
 }
 
-int AShipSpawner::randomiseBehaviour()
+void AShipSpawner::randomiseBehaviour()
 {
-	srand(time(0));
 	behaviour = rand() % 2;
-	return behaviour;
 }
 

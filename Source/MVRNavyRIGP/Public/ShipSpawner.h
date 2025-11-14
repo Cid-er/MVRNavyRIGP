@@ -19,7 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	void RandomiseShip();
-	int randomiseBehaviour();
+	void randomiseBehaviour();
 	TMap<uint32, FString> shipList;
 	
 	int behaviour;
