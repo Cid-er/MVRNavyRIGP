@@ -3,6 +3,9 @@
 
 #include "ShipSpawner.h"
 
+float speed = 1.0f; 
+int behaviour;
+
 // Sets default values
 AShipSpawner::AShipSpawner()
 {
@@ -18,12 +21,19 @@ void AShipSpawner::BeginPlay()
 	shipList.Add(0, "/Game/LevelPrototyping/Meshes/SM_ChamferCube.SM_ChamferCube");
 	shipList.Add(1, "/Game/LevelPrototyping/Meshes/SM_Cylinder.SM_Cylinder");
 	RandomiseShip();
+	randomiseBehaviour();
 }
 
 // Called every frame
 void AShipSpawner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (behaviour == 1) // ignore if behaviour == 0 as 0 is stationary
+	{
+		FVector movement = GetActorLocation();
+		movement += GetActorForwardVector() * speed * DeltaTime;
+		SetActorLocation(movement);
+	}
 }
 
 void AShipSpawner::RandomiseShip()
@@ -45,5 +55,12 @@ void AShipSpawner::RandomiseShip()
 	//Generate a new location and set our actor to it.
 	FVector randomLocation(FMath::FRandRange(-750.0, 750.0), FMath::FRandRange(-750.0, 750.0), 300);
 	SetActorLocation(randomLocation);
+}
+
+int AShipSpawner::randomiseBehaviour()
+{
+	srand(time(0));
+	behaviour = rand() % 2;
+	return behaviour;
 }
 
