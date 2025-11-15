@@ -16,6 +16,11 @@ ASpawnedShip::ASpawnedShip()
 void ASpawnedShip::BeginPlay()
 {
 	Super::BeginPlay();
+	if (GetComponentByClass<UStaticMeshComponent>() == NULL)
+	{
+		UStaticMeshComponent* createdMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("STATICMESH"));
+		createdMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	}
 	RandomiseShip();
 	
 }

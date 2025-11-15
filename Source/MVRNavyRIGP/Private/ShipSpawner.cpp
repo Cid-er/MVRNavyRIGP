@@ -11,7 +11,8 @@ AShipSpawner::AShipSpawner()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	UStaticMeshComponent* createdMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("STATICMESH"));
+	createdMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 // Called when the game starts or when spawned
