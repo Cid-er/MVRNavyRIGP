@@ -27,6 +27,7 @@ protected:
 	
 	int behaviour;
 	float speed; 
+	int spinDir;
 	FString shipName;
 
 public:	
