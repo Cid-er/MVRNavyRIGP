@@ -21,8 +21,12 @@ void AASpawnHandler::BeginPlay()
 	//will get Submarine position later in development, currently gets player position
 	PlayerPosition = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
 
-	//will call multiple times once more traffic types are added
-	SpawnTraffic();
+	//number of traffic spawns per interval
+	int NumberOfSpawns = FMath::RandRange(1, 3);
+	for (int i = 0; i < NumberOfSpawns; i++) 
+	{
+		SpawnTraffic();
+	}
 }
 
 // Called every frame
