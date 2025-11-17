@@ -83,9 +83,10 @@ void AShipSpawner::RandomiseShip()
 	//Get our current mesh, then set it to the new mesh.
 	UStaticMeshComponent* ourMesh = GetComponentByClass<UStaticMeshComponent>();
 	ourMesh->SetStaticMesh(MeshAsset);
+	ourMesh->SetMaterial(0, Cast<UMaterial>(StaticLoadObject(UMaterial::StaticClass(), NULL, TEXT("/Game/LevelPrototyping/Materials/DebugShipMaterial.DebugShipMaterial"))));
 
 	//Generate a new location and set our actor to it.
-	FVector randomLocation(FMath::FRandRange(-750.0, 750.0), FMath::FRandRange(-750.0, 750.0), 300);
+	FVector randomLocation(FMath::FRandRange(2000.0, 6000.0), FMath::FRandRange(-2000.0, 2000.0), 0);
 	SetActorLocation(randomLocation);
 
 	//Generate a new rotation for the actor to look at and potential spin direction.
