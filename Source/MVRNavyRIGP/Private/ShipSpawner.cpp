@@ -21,6 +21,7 @@ void AShipSpawner::BeginPlay()
 	Super::BeginPlay();
 	shipList.Add(0, "/Game/LevelPrototyping/Meshes/SM_ChamferCube.SM_ChamferCube");
 	shipList.Add(1, "/Game/LevelPrototyping/Meshes/SM_Cylinder.SM_Cylinder");
+	//shipList.Add(2, "");
 	RandomiseShip();
 	randomiseBehaviour();
 }
@@ -42,6 +43,7 @@ void AShipSpawner::RandomiseShip()
 	//Make a new random seed and generate a random ID number.
 	srand(time(0));
 	int shipChoice = rand() % shipList.Num();
+	shipID = shipChoice;
 	//Look at the map to find which mesh to change to.
 	const TCHAR* shipPath = *shipList[shipChoice];
 	shipName = shipPath;
