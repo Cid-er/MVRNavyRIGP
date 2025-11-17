@@ -5,6 +5,7 @@
 
 float speed = 1.0f; 
 int behaviour;
+int spinDir;
 
 // Sets default values
 AShipSpawner::AShipSpawner()
@@ -29,11 +30,39 @@ void AShipSpawner::BeginPlay()
 void AShipSpawner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (behaviour == 1) // ignore if behaviour == 0 as 0 is stationary
+	if (behaviour == 0) // behaviour when stationary
+	{
+		if (spinDir == 1) // left (Ignore 0, as 0 means no Rotation
+		{
+			FRotator rotation = GetActorRotation();
+			rotation += FRotator(0, -1, 0) * 10.0f * DeltaTime;
+			SetActorRotation(rotation);
+		}
+		if (spinDir == 2) // right
+		{
+			FRotator rotation = GetActorRotation();
+			rotation += FRotator(0, 1, 0) * 10.0f * DeltaTime;
+			SetActorRotation(rotation);
+		}
+
+	}
+	if (behaviour == 1) // behaviour when moving
 	{
 		FVector movement = GetActorLocation();
 		movement += GetActorForwardVector() * 50.0f * DeltaTime;
 		SetActorLocation(movement);
+		if (spinDir == 1) // left (Ignore 0, as 0 means no Rotation
+		{
+			FRotator rotation = GetActorRotation();
+			rotation += FRotator(0, -1, 0) * 10.0f * DeltaTime;
+			SetActorRotation(rotation);
+		}
+		if (spinDir == 2) // right
+		{
+			FRotator rotation = GetActorRotation();
+			rotation += FRotator(0, 1, 0) * 10.0f * DeltaTime;
+			SetActorRotation(rotation);
+		}
 	}
 }
 
@@ -57,10 +86,10 @@ void AShipSpawner::RandomiseShip()
 	FVector randomLocation(FMath::FRandRange(-750.0, 750.0), FMath::FRandRange(-750.0, 750.0), 300);
 	SetActorLocation(randomLocation);
 
-	//Generate a new rotation for the actor to look at.
+	//Generate a new rotation for the actor to look at and potential spin direction.
 	FRotator randomRotation(0,FMath::FRandRange(-180.0, 180.0),0); 
 	SetActorRotation(randomRotation);
-	
+	spinDir = rand() % 3;
 }
 
 void AShipSpawner::randomiseBehaviour()
