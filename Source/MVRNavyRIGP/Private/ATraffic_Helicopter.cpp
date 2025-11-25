@@ -10,12 +10,12 @@ AATraffic_Helicopter::AATraffic_Helicopter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	UStaticMeshComponent* Root = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HelicopterMesh"));
-	Root->SetWorldScale3D(FVector(10.0f, 10.0f, 10.0f));
+	Root->SetWorldScale3D(FVector(1.0f, 1.0f, 1.0f));
 	RootComponent = Root;
 
 	//set static mesh to a cube for testing purposes, change to helicopter mesh later
-	TrafficMesh = ConstructorHelpers::FObjectFinder<UStaticMesh>(TEXT("StaticMesh'/Engine/BasicShapes/Cube.Cube'")).Object;
-	Root->SetStaticMesh(TrafficMesh);
+	//TrafficMesh = ConstructorHelpers::FObjectFinder<UStaticMesh>(TEXT("StaticMesh'/Engine/BasicShapes/Cube.Cube'")).Object;
+	//Root->SetStaticMesh(TrafficMesh);
 }
 
 
@@ -23,4 +23,9 @@ AATraffic_Helicopter::AATraffic_Helicopter()
 void AATraffic_Helicopter::BeginPlay()
 {
 	Super::BeginPlay();
+	//TrafficMesh = Cast<UStaticMesh>(StaticLoadObject(UStaticMesh::StaticClass(), NULL, TEXT("/Game/Assets/KA - 27Blockout.KA - 27Blockout")));
+	UStaticMeshComponent* ourMesh = GetComponentByClass<UStaticMeshComponent>();
+	ourMesh->SetStaticMesh(TrafficMesh);
+	ourMesh->SetWorldScale3D(FVector(1.0f, 1.0f, 1.0f));
+	//RootComponent->SetStaticMesh(TrafficMesh);
 }
