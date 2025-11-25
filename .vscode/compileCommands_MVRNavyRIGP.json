@@ -1,0 +1,74 @@
+[
+	{
+		"file": "D:\\Github\\MVRNavyRIGP\\Source\\MVRNavyRIGP\\MVRNavyRIGP.Build.cs",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Github\\MVRNavyRIGP\\.vscode\\compileCommands_MVRNavyRIGP\\MVRNavyRIGP.394.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.6\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Github\\MVRNavyRIGP\\Source\\MVRNavyRIGP\\MVRNavyRIGP.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Github\\MVRNavyRIGP\\.vscode\\compileCommands_MVRNavyRIGP\\MVRNavyRIGP.394.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.6\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Github\\MVRNavyRIGP\\Source\\MVRNavyRIGP\\MVRNavyRIGP.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Github\\MVRNavyRIGP\\.vscode\\compileCommands_MVRNavyRIGP\\MVRNavyRIGP.394.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.6\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Github\\MVRNavyRIGP\\Source\\MVRNavyRIGP\\Private\\ShipSpawner.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Github\\MVRNavyRIGP\\.vscode\\compileCommands_MVRNavyRIGP\\MVRNavyRIGP.394.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.6\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Github\\MVRNavyRIGP\\Source\\MVRNavyRIGP\\Private\\SpawnableShip.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Github\\MVRNavyRIGP\\.vscode\\compileCommands_MVRNavyRIGP\\MVRNavyRIGP.394.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.6\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Github\\MVRNavyRIGP\\Source\\MVRNavyRIGP\\Private\\SpawnedShip.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Github\\MVRNavyRIGP\\.vscode\\compileCommands_MVRNavyRIGP\\MVRNavyRIGP.394.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.6\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Github\\MVRNavyRIGP\\Source\\MVRNavyRIGP\\Public\\ShipSpawner.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Github\\MVRNavyRIGP\\.vscode\\compileCommands_MVRNavyRIGP\\MVRNavyRIGP.394.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.6\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Github\\MVRNavyRIGP\\Source\\MVRNavyRIGP\\Public\\SpawnableShip.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Github\\MVRNavyRIGP\\.vscode\\compileCommands_MVRNavyRIGP\\MVRNavyRIGP.394.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.6\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Github\\MVRNavyRIGP\\Source\\MVRNavyRIGP\\Public\\SpawnedShip.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Github\\MVRNavyRIGP\\.vscode\\compileCommands_MVRNavyRIGP\\MVRNavyRIGP.394.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.6\\Engine\\Source"
+	}
+]
