@@ -82,7 +82,10 @@ void AASpawnHandler::SpawnTraffic()
 		float AngleFromPlayer = FMath::RandRange(0.0f, 360.0f);
 
 		//parametric equations for circle to set the spawn location around player
-		SpawnLocation = FVector(FMath::Cos(FMath::DegreesToRadians(AngleFromPlayer)) * (Distance + SubLocation.X), FMath::Sin(FMath::DegreesToRadians(AngleFromPlayer)) * (Distance + SubLocation.Y), Height);
+		float SpawnLocationX = FMath::Cos(FMath::DegreesToRadians(AngleFromPlayer)) * (Distance) + SubLocation.X;
+		float SpawnLocationY = FMath::Sin(FMath::DegreesToRadians(AngleFromPlayer)) * (Distance) + SubLocation.Y;
+
+		SpawnLocation = FVector(SpawnLocationX, SpawnLocationY, Height);
 		
 		//Sets a random yaw rotation for the helicopter
 		float YawRotation = FMath::RandRange(0.0f, 360.0f);
@@ -95,7 +98,7 @@ void AASpawnHandler::SpawnTraffic()
 
 //	else if(TrafficClass->IsChildOf(AATraffic_Ship::StaticClass()))
 //	{
-//		 Spawn a ship traffic actor with ship spawn point boundaries
+//		 Spawn a ship traffic actor with ship spawn point boundaries (for future use)
 //	}
 }
 
