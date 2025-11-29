@@ -65,6 +65,11 @@ void AShipSpawner::Tick(float DeltaTime)
 			SetActorRotation(rotation);
 		}
 	}
+	if (trainingMode)
+	{
+		//Distance is a value from 0 - 1
+		SetActorLocation(FVector((450 * (distance+1)), 0, 450));
+	}
 }
 
 void AShipSpawner::RandomiseShip()
@@ -98,5 +103,20 @@ void AShipSpawner::RandomiseShip()
 void AShipSpawner::randomiseBehaviour()
 {
 	behaviour = rand() % 2;
+}
+
+void AShipSpawner::SelectShip(int shipIDSelect)
+{
+	behaviour = 0;
+	spinDir = 0;
+	SetActorLocationAndRotation(FVector(450, 0, 450), FRotator(0));
+	if (shipIDSelect < shipList.Num())
+	{
+		const TCHAR* shipPath = *shipList[shipIDSelect];
+		UStaticMesh* MeshAsset = Cast<UStaticMesh>(StaticLoadObject(UStaticMesh::StaticClass(), NULL, shipPath));
+
+		UStaticMeshComponent* ourMesh = GetComponentByClass<UStaticMeshComponent>();
+		ourMesh->SetStaticMesh(MeshAsset);
+	}
 }
 

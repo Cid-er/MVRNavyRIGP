@@ -17,6 +17,12 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 	int shipID;
+	UPROPERTY(BlueprintReadWrite)
+	float distance;
+	UPROPERTY(BlueprintReadWrite)
+	bool trainingMode;
+	UFUNCTION(BlueprintCallable)
+	void SelectShip(int shipIDSelect);
 
 protected:
 	// Called when the game starts or when spawned
