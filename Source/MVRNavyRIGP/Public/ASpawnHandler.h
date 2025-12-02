@@ -28,7 +28,6 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Traffic")
 	TArray<TSubclassOf<AATraffic>> TrafficTypes;
 
-	//AActor* Submarine will be used when we have a submarine instead of PlayerPosition
 	FVector PlayerPosition;
 
 
