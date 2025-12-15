@@ -20,8 +20,9 @@ AShipSpawner::AShipSpawner()
 void AShipSpawner::BeginPlay()
 {
 	Super::BeginPlay();
-	shipList.Add(0, "/Game/LevelPrototyping/Meshes/SM_ChamferCube.SM_ChamferCube");
-	shipList.Add(1, "/Game/LevelPrototyping/Meshes/SM_Cylinder.SM_Cylinder");
+    shipList.Add(0, "/Game/Assets/AkulaClassBlockout.AkulaClassBlockout");
+	//shipList.Add(0, "/Game/Assets/Jin_Class_Submarine.Jin_Class_Submarine");
+	shipList.Add(1, "/Game/Assets/charlesDeGaulle_lowvis.charlesDeGaulle_lowvis");
 	//shipList.Add(2, "");
 	RandomiseShip();
 	randomiseBehaviour();
@@ -68,7 +69,7 @@ void AShipSpawner::Tick(float DeltaTime)
 	if (trainingMode)
 	{
 		//Distance is a value from 0 - 1
-		SetActorLocation(FVector((450 * (distance+1)), 0, 450));
+		SetActorLocation(FVector((20000 * (distance+1)), 0, 2000));
 	}
 }
 
@@ -109,11 +110,20 @@ void AShipSpawner::SelectShip(int shipIDSelect)
 {
 	behaviour = 0;
 	spinDir = 0;
-	SetActorLocationAndRotation(FVector(450, 0, 450), FRotator(0));
+	
 	if (shipIDSelect < shipList.Num())
 	{
 		const TCHAR* shipPath = *shipList[shipIDSelect];
 		UStaticMesh* MeshAsset = Cast<UStaticMesh>(StaticLoadObject(UStaticMesh::StaticClass(), NULL, shipPath));
+
+		if (shipIDSelect == 0)
+		{
+			SetActorLocationAndRotation(FVector(2000, 0, 2000), FRotator(0, 90, 0));
+		}
+		if (shipIDSelect == 1)
+		{
+			SetActorLocationAndRotation(FVector(20000, 0, 2000), FRotator(0, 90, 0));
+		}
 
 		UStaticMeshComponent* ourMesh = GetComponentByClass<UStaticMeshComponent>();
 		ourMesh->SetStaticMesh(MeshAsset);
